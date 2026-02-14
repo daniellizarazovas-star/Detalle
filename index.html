@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tatiana & Daniel 💕</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Dancing+Script:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --rose: #c0392b;
+    --rose-light: #e8a0a0;
+    --rose-pale: #fdf0f0;
+    --rose-dark: #7b1c1c;
+    --gold: #c9a84c;
+    --gold-light: #f0d98a;
+    --cream: #fdf6f0;
+    --petal: #f9e4e4;
+    --ink: #2c1810;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--cream);
+    font-family: 'Cormorant Garamond', serif;
+    overflow-x: hidden;
+    cursor: default;
+  }
+
+  /* ── PETALS FALLING ── */
+  .petals-container {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .petal {
+    position: absolute;
+    top: -40px;
+    font-size: 1.2rem;
+    animation: falling linear infinite;
+    opacity: 0.7;
+  }
+
+  @keyframes falling {
+    0%   { transform: translateY(-40px) rotate(0deg) translateX(0); opacity: 0; }
+    10%  { opacity: 0.8; }
+    90%  { opacity: 0.5; }
+    100% { transform: translateY(105vh) rotate(720deg) translateX(60px); opacity: 0; }
+  }
+
+  /* ── INTRO SCREEN ── */
+  #intro {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(135deg, #1a0505 0%, #4a0d0d 40%, #8b1a1a 70%, #c0392b 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    transition: opacity 1.2s ease, transform 1.2s ease;
+  }
+
+  #intro.hide {
+    opacity: 0;
+    transform: scale(1.05);
+    pointer-events: none;
+  }
+
+  .intro-hearts {
+    font-size: 3rem;
+    animation: pulse 1.5s ease-in-out infinite;
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.5rem;
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+  }
+
+  .intro-title {
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    color: #fff;
+    text-align: center;
+    text-shadow: 0 0 30px rgba(255,180,180,0.6);
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
+  }
+
+  .intro-date {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    color: var(--gold-light);
+    font-size: 1.1rem;
+    letter-spacing: 0.3rem;
+    margin-bottom: 2.5rem;
+    opacity: 0.9;
+  }
+
+  .intro-btn {
+    background: transparent;
+    border: 2px solid rgba(255,255,255,0.6);
+    color: #fff;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.2rem;
+    padding: 0.8rem 2.5rem;
+    cursor: pointer;
+    border-radius: 50px;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .intro-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(255,255,255,0.1);
+    transform: scaleX(0);
+    transition: transform 0.3s;
+    transform-origin: left;
+  }
+
+  .intro-btn:hover::before { transform: scaleX(1); }
+  .intro-btn:hover { border-color: #fff; letter-spacing: 0.35rem; }
+
+  /* ── MAIN ALBUM ── */
+  #album {
+    min-height: 100vh;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── HERO HEADER ── */
+  .hero {
+    text-align: center;
+    padding: 5rem 2rem 3rem;
+    position: relative;
+  }
+
+  .hero-ornament {
+    font-size: 1.5rem;
+    letter-spacing: 1rem;
+    color: var(--rose);
+    opacity: 0.6;
+    margin-bottom: 1rem;
+    animation: floatOrnament 3s ease-in-out infinite;
+  }
+
+  @keyframes floatOrnament {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+
+  .hero-title {
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(3rem, 10vw, 7rem);
+    color: var(--rose-dark);
+    line-height: 1;
+    text-shadow: 2px 2px 0 var(--rose-light), 4px 4px 20px rgba(192,57,43,0.2);
+    margin-bottom: 0.3rem;
+  }
+
+  .hero-ampersand {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    color: var(--gold);
+    font-size: clamp(2rem, 6vw, 4.5rem);
+    display: block;
+    margin: -0.5rem 0;
+  }
+
+  .hero-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--rose);
+    letter-spacing: 0.3rem;
+    margin-top: 1.2rem;
+    opacity: 0.8;
+  }
+
+  .hero-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin: 2rem auto;
+    max-width: 400px;
+  }
+
+  .hero-divider-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+
+  .hero-divider-icon { color: var(--rose); font-size: 1rem; }
+
+  /* ── QUOTE BANNER ── */
+  .quote-banner {
+    background: linear-gradient(135deg, var(--rose-dark), var(--rose));
+    color: #fff;
+    text-align: center;
+    padding: 2.5rem 2rem;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 3rem;
+  }
+
+  .quote-banner::before, .quote-banner::after {
+    content: '❝';
+    position: absolute;
+    font-size: 8rem;
+    opacity: 0.1;
+    font-family: 'Playfair Display', serif;
+    top: -1rem;
+  }
+
+  .quote-banner::before { left: 1rem; }
+  .quote-banner::after { content: '❞'; right: 1rem; bottom: -1rem; top: auto; }
+
+  .quote-text {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: clamp(1.1rem, 3vw, 1.5rem);
+    line-height: 1.7;
+    max-width: 650px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── PHOTO GRID ── */
+  .section-label {
+    text-align: center;
+    font-family: 'Dancing Script', cursive;
+    font-size: 2rem;
+    color: var(--rose-dark);
+    margin-bottom: 2rem;
+    opacity: 0.85;
+  }
+
+  .photo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.8rem;
+    padding: 0 2rem 3rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .photo-card {
+    background: #fff;
+    border-radius: 4px;
+    box-shadow: 0 4px 20px rgba(192,57,43,0.12), 0 1px 4px rgba(0,0,0,0.08);
+    overflow: hidden;
+    transition: transform 0.4s cubic-bezier(.17,.67,.35,1.2), box-shadow 0.4s;
+    position: relative;
+    animation: cardAppear 0.6s ease both;
+  }
+
+  @keyframes cardAppear {
+    from { opacity: 0; transform: translateY(30px) rotate(-1deg); }
+    to   { opacity: 1; transform: translateY(0) rotate(0deg); }
+  }
+
+  .photo-card:nth-child(odd)  { transform-origin: left center; }
+  .photo-card:nth-child(even) { transform-origin: right center; }
+
+  .photo-card:hover {
+    transform: translateY(-8px) rotate(1deg) scale(1.02);
+    box-shadow: 0 16px 40px rgba(192,57,43,0.22), 0 4px 12px rgba(0,0,0,0.12);
+    z-index: 2;
+  }
+
+  .photo-card:nth-child(even):hover { transform: translateY(-8px) rotate(-1deg) scale(1.02); }
+
+  /* Photo frame / upload area */
+  .photo-frame {
+    width: 100%;
+    aspect-ratio: 4/3;
+    background: linear-gradient(135deg, var(--petal), #f5d5d5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+  }
+
+  .photo-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: none;
+    transition: transform 0.5s ease;
+  }
+
+  .photo-frame:hover img { transform: scale(1.05); }
+
+  .photo-frame.has-image .upload-hint { display: none; }
+  .photo-frame.has-image img { display: block; }
+
+  .upload-hint {
+    text-align: center;
+    color: var(--rose);
+    opacity: 0.6;
+    pointer-events: none;
+  }
+
+  .upload-hint .upload-icon { font-size: 2.5rem; margin-bottom: 0.5rem; display: block; }
+  .upload-hint p { font-size: 0.85rem; font-family: 'Cormorant Garamond', serif; font-style: italic; }
+
+  .photo-input { display: none; }
+
+  .photo-tape {
+    position: absolute;
+    top: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 22px;
+    background: rgba(255,220,180,0.55);
+    border-radius: 2px;
+    z-index: 3;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+  }
+
+  .photo-caption {
+    padding: 1.1rem 1.2rem 1.2rem;
+    background: #fff;
+    position: relative;
+    border-top: 1px solid var(--petal);
+  }
+
+  .photo-caption-text {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--ink);
+    text-align: center;
+    display: block;
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
+  }
+
+  .photo-caption-date {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1rem;
+    color: var(--rose);
+    text-align: center;
+    display: block;
+    opacity: 0.85;
+  }
+
+  .photo-heart {
+    display: block;
+    text-align: center;
+    font-size: 1rem;
+    color: var(--rose-light);
+    margin-bottom: 0.4rem;
+    animation: heartBeat 2s ease-in-out infinite;
+  }
+
+  @keyframes heartBeat {
+    0%, 100% { transform: scale(1); }
+    14% { transform: scale(1.3); }
+    28% { transform: scale(1); }
+    42% { transform: scale(1.2); }
+    70% { transform: scale(1); }
+  }
+
+  /* ── QUOTE CARDS ── */
+  .quotes-section {
+    background: linear-gradient(180deg, var(--petal) 0%, #fff8f8 100%);
+    padding: 3rem 2rem;
+    text-align: center;
+  }
+
+  .quotes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .quote-card {
+    background: #fff;
+    border: 1px solid var(--rose-light);
+    border-radius: 8px;
+    padding: 1.8rem 1.5rem;
+    position: relative;
+    box-shadow: 0 2px 12px rgba(192,57,43,0.08);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .quote-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(192,57,43,0.15);
+  }
+
+  .quote-card::before {
+    content: '❤';
+    position: absolute;
+    top: -0.7rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #fff;
+    padding: 0 0.4rem;
+    color: var(--rose);
+    font-size: 1rem;
+  }
+
+  .quote-card p {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--ink);
+    line-height: 1.7;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    text-align: center;
+    padding: 3rem 2rem 2rem;
+    background: linear-gradient(135deg, var(--rose-dark), #8b1a1a);
+    color: #fff;
+  }
+
+  .footer-heart {
+    font-size: 3rem;
+    display: block;
+    margin-bottom: 1rem;
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+
+  .footer-title {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.2rem;
+    margin-bottom: 0.5rem;
+    color: var(--gold-light);
+  }
+
+  .footer-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1rem;
+    opacity: 0.8;
+    letter-spacing: 0.15rem;
+  }
+
+  .footer-date {
+    margin-top: 1.5rem;
+    font-size: 0.85rem;
+    opacity: 0.5;
+    letter-spacing: 0.2rem;
+  }
+
+  /* ── LIGHTBOX ── */
+  #lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(20,4,4,0.92);
+    z-index: 200;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    animation: fadeIn 0.3s ease;
+  }
+
+  #lightbox.open { display: flex; }
+
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+  #lightbox img {
+    max-width: 90vw;
+    max-height: 80vh;
+    border-radius: 4px;
+    box-shadow: 0 0 60px rgba(192,57,43,0.4);
+    object-fit: contain;
+  }
+
+  #lightbox-close {
+    position: absolute;
+    top: 1.5rem; right: 1.5rem;
+    font-size: 2rem;
+    color: #fff;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+    background: none;
+    border: none;
+    line-height: 1;
+  }
+
+  #lightbox-close:hover { opacity: 1; }
+
+  #lightbox-caption {
+    font-family: 'Dancing Script', cursive;
+    color: var(--rose-light);
+    font-size: 1.3rem;
+    margin-top: 1rem;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--petal); }
+  ::-webkit-scrollbar-thumb { background: var(--rose-light); border-radius: 3px; }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    .photo-grid { grid-template-columns: 1fr 1fr; gap: 1rem; padding: 0 1rem 2rem; }
+    .quotes-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- PETALS -->
+<div class="petals-container" id="petals"></div>
+
+<!-- INTRO -->
+<div id="intro">
+  <div class="intro-hearts">🌹 💕 🌹</div>
+  <div class="intro-title">Tatiana<br><span style="font-size:0.6em; color:var(--gold-light);">&amp;</span><br>Daniel</div>
+  <div class="intro-date">14 · febrero · 2026</div>
+  <button class="intro-btn" onclick="openAlbum()">Abrir nuestro álbum 💌</button>
+</div>
+
+<!-- ALBUM -->
+<div id="album" style="display:none;">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-ornament">🌹 ❤ 🌹</div>
+    <div class="hero-title">Tatiana
+      <span class="hero-ampersand">&amp;</span>
+      Daniel
+    </div>
+    <div class="hero-subtitle">14 de febrero de 2026 · Feliz Día de San Valentín</div>
+    <div class="hero-divider">
+      <div class="hero-divider-line"></div>
+      <div class="hero-divider-icon">💕</div>
+      <div class="hero-divider-line"></div>
+    </div>
+  </div>
+
+  <!-- QUOTE BANNER -->
+  <div class="quote-banner">
+    <p class="quote-text">
+      "Tatiana, eres tú la razón de que cada día quiera ser mejor."
+    </p>
+  </div>
+
+  <!-- PHOTO SECTION -->
+  <div class="section-label">Nuestros momentos 📷</div>
+
+  <div class="photo-grid" id="photoGrid">
+    <!-- Cards generated by JS -->
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <span class="footer-heart">❤️</span>
+    <div class="footer-title">Para siempre, tu Daniel</div>
+    <div class="footer-sub">Hoy y todos los días</div>
+    <div class="footer-date">14 · 02 · 2026</div>
+  </div>
+
+</div>
+
+<!-- LIGHTBOX -->
+<div id="lightbox">
+  <button id="lightbox-close" onclick="closeLightbox()">✕</button>
+  <img id="lightbox-img" src="" alt="">
+  <div id="lightbox-caption"></div>
+</div>
+
+<script>
+  const captions = [
+    { text: "Eres el amor que no sabía que estaba buscando 💕", date: "Siempre en mi corazón" },
+    { text: "Mi lugar favorito en el mundo es a tu lado 🌹", date: "El mejor día" },
+    { text: "Contigo, cada instante se convierte en mi recuerdo favorito ✨", date: "Para siempre" },
+    { text: "Desde que llegaste, cada día tiene más color 💌", date: "Cada día más" },
+    { text: "No sé qué hice para merecer a alguien tan increíble 🥀", date: "Inolvidable" },
+    { text: "Gracias por llenar mi vida de momentos que atesoro para siempre 🌍", date: "Juntos siempre" },
+    { text: "Ninguna foto captura lo mucho que te amo 💫", date: "Contigo" },
+    { text: "Tú + Yo = Mi parte favorita de la vida ♾️", date: "14 · 02 · 2026" },
+  ];
+
+  // Generate photo cards
+  const grid = document.getElementById('photoGrid');
+  captions.forEach((cap, i) => {
+    const card = document.createElement('div');
+    card.className = 'photo-card';
+    card.style.animationDelay = `${i * 0.08}s`;
+    card.innerHTML = `
+      <div class="photo-tape"></div>
+      <label class="photo-frame" id="frame${i}">
+        <input type="file" accept="image/*" class="photo-input" onchange="loadPhoto(event, ${i})">
+        <div class="upload-hint">
+          <span class="upload-icon">📷</span>
+          <p>Toca para añadir<br>tu foto</p>
+        </div>
+        <img id="img${i}" src="" alt="Foto ${i+1}" onclick="openLightbox(${i})">
+      </label>
+      <div class="photo-caption">
+        <span class="photo-heart">❤</span>
+        <span class="photo-caption-text">${cap.text}</span>
+        <span class="photo-caption-date">${cap.date}</span>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+
+  // Generate petals
+  const container = document.getElementById('petals');
+  const symbols = ['🌸','🌹','❤','💕','🥀','💗'];
+  for (let i = 0; i < 18; i++) {
+    const p = document.createElement('div');
+    p.className = 'petal';
+    p.textContent = symbols[i % symbols.length];
+    p.style.left = `${Math.random() * 100}%`;
+    p.style.animationDuration = `${5 + Math.random() * 8}s`;
+    p.style.animationDelay = `${Math.random() * 8}s`;
+    p.style.fontSize = `${0.7 + Math.random() * 1.2}rem`;
+    container.appendChild(p);
+  }
+
+  function openAlbum() {
+    const intro = document.getElementById('intro');
+    const album = document.getElementById('album');
+    intro.classList.add('hide');
+    setTimeout(() => {
+      intro.style.display = 'none';
+      album.style.display = 'block';
+    }, 1200);
+  }
+
+  function loadPhoto(e, idx) {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      const img = document.getElementById(`img${idx}`);
+      const frame = document.getElementById(`frame${idx}`);
+      img.src = ev.target.result;
+      img.dataset.src = ev.target.result;
+      frame.classList.add('has-image');
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function openLightbox(idx) {
+    const img = document.getElementById(`img${idx}`);
+    if (!img.src || img.src === window.location.href) return;
+    document.getElementById('lightbox-img').src = img.src;
+    document.getElementById('lightbox-caption').textContent = captions[idx].text;
+    document.getElementById('lightbox').classList.add('open');
+  }
+
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+  }
+
+  document.getElementById('lightbox').addEventListener('click', (e) => {
+    if (e.target === e.currentTarget) closeLightbox();
+  });
+</script>
+</body>
+</html>
