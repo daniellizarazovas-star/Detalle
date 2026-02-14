@@ -589,14 +589,14 @@
 
 <script>
   const captions = [
-    { text: "Eres el amor que no sabía que estaba buscando 💕", date: "Siempre en mi corazón" },
-    { text: "Mi lugar favorito en el mundo es a tu lado 🌹", date: "El mejor día" },
-    { text: "Contigo, cada instante se convierte en mi recuerdo favorito ✨", date: "Para siempre" },
-    { text: "Desde que llegaste, cada día tiene más color 💌", date: "Cada día más" },
-    { text: "No sé qué hice para merecer a alguien tan increíble 🥀", date: "Inolvidable" },
-    { text: "Gracias por llenar mi vida de momentos que atesoro para siempre 🌍", date: "Juntos siempre" },
-    { text: "Ninguna foto captura lo mucho que te amo 💫", date: "Contigo" },
-    { text: "Tú + Yo = Mi parte favorita de la vida ♾️", date: "14 · 02 · 2026" },
+    { text: "Eres el amor que no sabía que estaba buscando 💕", date: "Siempre en mi corazón", src: "4113FF4A-4C4E-4552-BC07-973EB62B3339.jpeg" },
+    { text: "Mi lugar favorito en el mundo es a tu lado 🌹", date: "El mejor día", src: "IMG_0066.jpeg" },
+    { text: "Contigo, cada instante se convierte en mi recuerdo favorito ✨", date: "Para siempre", src: "IMG_7963.jpeg" },
+    { text: "Desde que llegaste, cada día tiene más color 💌", date: "Cada día más", src: "foto1.jpg" },
+    { text: "No sé qué hice para merecer a alguien tan increíble 🥀", date: "Inolvidable", src: "foto2.jpg" },
+    { text: "Gracias por llenar mi vida de momentos que atesoro para siempre 🌍", date: "Juntos siempre", src: "foto4.jpg" },
+    { text: "Ninguna foto captura lo mucho que te amo 💫", date: "Contigo", src: "photo-output.jpeg" },
+    { text: "Tú + Yo = Mi parte favorita de la vida ♾️", date: "14 · 02 · 2026", src: "799547DA-356C-4495-A3CE-EAA3A0059822.jpeg" },
   ];
 
   // Generate photo cards
@@ -607,14 +607,9 @@
     card.style.animationDelay = `${i * 0.08}s`;
     card.innerHTML = `
       <div class="photo-tape"></div>
-      <label class="photo-frame" id="frame${i}">
-        <input type="file" accept="image/*" class="photo-input" onchange="loadPhoto(event, ${i})">
-        <div class="upload-hint">
-          <span class="upload-icon">📷</span>
-          <p>Toca para añadir<br>tu foto</p>
-        </div>
-        <img id="img${i}" src="" alt="Foto ${i+1}" onclick="openLightbox(${i})">
-      </label>
+      <div class="photo-frame has-image" id="frame${i}" onclick="openLightbox(${i})">
+        <img id="img${i}" src="${cap.src}" alt="Foto ${i+1}">
+      </div>
       <div class="photo-caption">
         <span class="photo-heart">❤</span>
         <span class="photo-caption-text">${cap.text}</span>
@@ -663,9 +658,7 @@
   }
 
   function openLightbox(idx) {
-    const img = document.getElementById(`img${idx}`);
-    if (!img.src || img.src === window.location.href) return;
-    document.getElementById('lightbox-img').src = img.src;
+    document.getElementById('lightbox-img').src = captions[idx].src;
     document.getElementById('lightbox-caption').textContent = captions[idx].text;
     document.getElementById('lightbox').classList.add('open');
   }
